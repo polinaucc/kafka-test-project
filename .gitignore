@@ -1,3 +1,4 @@
 .idea
 *.iml
 /message_api/target/
+/person/api/target/

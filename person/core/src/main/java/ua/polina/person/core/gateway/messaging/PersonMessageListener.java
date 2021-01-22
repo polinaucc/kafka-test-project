@@ -19,7 +19,6 @@ public class PersonMessageListener {
     private final PersonResponseProducer personResponseProducer;
 
     @KafkaHandler
-    @Transactional
     public void listenGroupPerson(CreatePerson command) {
         log.info("Sending data: ' " + command);
         try {
