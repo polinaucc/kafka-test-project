@@ -5,3 +5,5 @@
 *.ipr
 mvnw
 /mvnw.cmd
+/target/
+HELP.md
