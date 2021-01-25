@@ -6,10 +6,12 @@ import lombok.NoArgsConstructor;
 import ua.polina.message_api.command.Event;
 import ua.polina.person.api.dto.PersonDto;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SuccessfulCreationPersonEvent implements Event<PersonDto> {
+public class SuccessfulCreationPersonEvent implements Event<PersonDto>, Serializable {
     public static final String TOPIC = "response";
 
     private PersonDto personDto;

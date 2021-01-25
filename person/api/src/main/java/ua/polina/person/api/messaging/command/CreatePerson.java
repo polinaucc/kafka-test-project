@@ -6,10 +6,12 @@ import lombok.NoArgsConstructor;
 import ua.polina.message_api.command.Command;
 import ua.polina.person.api.dto.PersonDto;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreatePerson implements Command<PersonDto> {
+public class CreatePerson implements Command<PersonDto>, Serializable {
     public static final String QUEUE = "person.create.queue";
 
     private PersonDto personDto;

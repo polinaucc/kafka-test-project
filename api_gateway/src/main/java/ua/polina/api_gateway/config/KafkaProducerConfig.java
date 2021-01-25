@@ -10,7 +10,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 import ua.polina.person.api.messaging.command.CreatePerson;
-import ua.polina.person.api.messaging.event.SuccessfulCreationPersonEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,12 +43,12 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<String, CreatePerson> responseDtoProducerFactory() {
+    public ProducerFactory<String, CreatePerson> personDtoProducerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<String, CreatePerson> responseDtoKafkaTemplate() {
-        return new KafkaTemplate<>(responseDtoProducerFactory());
+    public KafkaTemplate<String, CreatePerson> personDtoKafkaTemplate() {
+        return new KafkaTemplate<>(personDtoProducerFactory());
     }
 }

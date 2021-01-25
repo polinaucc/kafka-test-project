@@ -8,12 +8,13 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonDto {
+public class PersonDto implements Serializable {
     @NotBlank(message = "First name should not be blank")
     @Size(max=20, message = "First name string length should not be more than 20 symbols")
     private String firstName;

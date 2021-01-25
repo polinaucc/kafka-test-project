@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1r7fjt0" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-0">
+  <bpmn:process id="send-message-process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0emhsm4</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_0xvw0kf">
+      <bpmn:incoming>SequenceFlow_188r09r</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Task_086j7ho" name="Send message to Kafka" camunda:delegateExpression="${messageProducer}">
+      <bpmn:incoming>SequenceFlow_0emhsm4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_07gx9pj</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0emhsm4" sourceRef="StartEvent_1" targetRef="Task_086j7ho" />
+    <bpmn:sequenceFlow id="SequenceFlow_188r09r" sourceRef="gettingMessage" targetRef="EndEvent_0xvw0kf" />
+    <bpmn:sequenceFlow id="SequenceFlow_07gx9pj" sourceRef="Task_086j7ho" targetRef="receivedMessage" />
+    <bpmn:sequenceFlow id="SequenceFlow_0xz1wrz" sourceRef="receivedMessage" targetRef="gettingMessage" />
+    <bpmn:intermediateCatchEvent id="receivedMessage" name="receivedMessage">
+      <bpmn:incoming>SequenceFlow_07gx9pj</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0xz1wrz</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_0rxza1w" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:serviceTask id="gettingMessage" name="Get message from Kafka" camunda:delegateExpression="${endProcessService}">
+      <bpmn:incoming>SequenceFlow_0xz1wrz</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_188r09r</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:message id="Message_0rxza1w" name="receivedMessage" />
+  <bpmn:signal id="Signal_0hgvqdm" name="${messageListener}" />
+  <bpmn:message id="Message_0dq5i2j" name="Message_2j8ct1c" />
+  <bpmn:message id="Message_0r6ymb6" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="send-message-process">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="125" y="81" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0xvw0kf_di" bpmnElement="EndEvent_0xvw0kf">
+        <dc:Bounds x="628" y="72" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1yfpdfm_di" bpmnElement="Task_086j7ho">
+        <dc:Bounds x="237" y="59" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0emhsm4_di" bpmnElement="SequenceFlow_0emhsm4">
+        <di:waypoint x="161" y="99" />
+        <di:waypoint x="237" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_188r09r_di" bpmnElement="SequenceFlow_188r09r">
+        <di:waypoint x="582" y="90" />
+        <di:waypoint x="628" y="90" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_07gx9pj_di" bpmnElement="SequenceFlow_07gx9pj">
+        <di:waypoint x="337" y="99" />
+        <di:waypoint x="386" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0xz1wrz_di" bpmnElement="SequenceFlow_0xz1wrz">
+        <di:waypoint x="422" y="99" />
+        <di:waypoint x="482" y="99" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_08c8xpo_di" bpmnElement="receivedMessage">
+        <dc:Bounds x="386" y="81" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="362" y="124" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1pon1hw_di" bpmnElement="gettingMessage">
+        <dc:Bounds x="482" y="59" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

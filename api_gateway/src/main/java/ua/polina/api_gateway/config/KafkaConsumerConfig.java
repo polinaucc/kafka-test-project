@@ -37,19 +37,19 @@ public class KafkaConsumerConfig {
         return factory;
     }
 
-    public ConsumerFactory<String, SuccessfulCreationPersonEvent> personDtoConsumerFactory() {
+    public ConsumerFactory<String, SuccessfulCreationPersonEvent> responseDtoConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "person");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "response");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new JsonDeserializer<>(SuccessfulCreationPersonEvent.class));
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, SuccessfulCreationPersonEvent> personDtoConcurrentKafkaListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, SuccessfulCreationPersonEvent> responseDtoConcurrentKafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, SuccessfulCreationPersonEvent> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(personDtoConsumerFactory());
+        factory.setConsumerFactory(responseDtoConsumerFactory());
         return factory;
     }
 }
