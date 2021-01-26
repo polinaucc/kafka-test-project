@@ -8,6 +8,12 @@ import ua.polina.person.api.dto.PersonDto;
 
 import java.io.Serializable;
 
+/**
+ * Response when a person is successfully saved or not. If person isn't saved
+ * personDto has default (null) fields' values.
+ *
+ * @author Polina Serhiienko
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
